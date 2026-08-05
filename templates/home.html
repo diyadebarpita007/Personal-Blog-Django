@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="mb-4">Latest Blogs</h1>
+<a href="{% url 'create_blog' %}" class="btn btn-success mb-3">
+    + Create Blog
+</a>
+
+{% for blog in blogs %}
+
+<div class="card mb-4">
+    <div class="card-body">
+        {% if blog.image %}
+
+<img src="{{ blog.image.url }}"
+     class="card-img-top">
+
+{% endif %}
+        <h3>
+    <a href="/blog/{{ blog.id }}/">
+        {{ blog.title }}
+    </a>
+</h3>
+        <h6 class="text-muted">By {{ blog.author }}</h6>
+        <p>{{ blog.content }}</p>
+    </div>
+</div>
+
+{% empty %}
+
+<div class="alert alert-warning">
+    No blogs found.
+</div>
+
+{% endfor %}
+
+{% endblock %}
